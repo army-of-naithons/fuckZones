@@ -296,7 +296,7 @@ void ReparseMapZonesConfig(bool delete_config = false)
 	BuildPath(Path_SM, sFolder, sizeof(sFolder), "data/zones/");
 	CreateDirectory(sFolder, 511);
 
-	char sMap[32];
+	char sMap[PLATFORM_MAX_PATH];
 	fuckZones_GetCurrentWorkshopMap(sMap, sizeof(sMap));
 
 	char sFile[PLATFORM_MAX_PATH];
@@ -3576,7 +3576,7 @@ void SaveMapConfig()
 		return;
 	}
 
-	char sMap[32];
+	char sMap[PLATFORM_MAX_PATH];
 	fuckZones_GetCurrentWorkshopMap(sMap, sizeof(sMap));
 
 	char sPath[PLATFORM_MAX_PATH];
@@ -4238,7 +4238,7 @@ void IsNotNearExternalZone_Post(int client, int entity, int type)
 		Call_StartForward(Forward.ZoneLeave);
 		Call_PushCell(client);
 		Call_PushString(sName);
-		
+
 		Call_Finish();
 
 		g_bIsInsideZone_Post[client][entity] = false;
@@ -5406,7 +5406,7 @@ public int Native_BackwardsCompIsClientInZone(Handle plugin, int numParams)
 
 	char[] sName = new char[size + 1];
 	GetNativeString(2, sName, size + 1);
-	
+
 	bool equals = GetNativeCell(3);
 	bool caseSensitive = GetNativeCell(4);
 
@@ -5420,7 +5420,7 @@ public int Native_BackwardsCompIsClientInZone(Handle plugin, int numParams)
 		{
 			char sName2[64];
 			GetZoneNameByIndex(zone, sName2, sizeof(sName2));
-			
+
 			if (StrEqual(sName2, sName, caseSensitive) || (!equals && StrContains(sName2, sName, caseSensitive) != -1))
 			{
 				if(g_bIsInZone[client][zone])
